@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>TRON HTML5</title>
+    <script src="http://code.createjs.com/easeljs-0.4.2.min.js"></script>
+   	<script src="http://code.createjs.com/tweenjs-0.2.0.min.js"></script>
+    <script src="/bike.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> 
+    <script src="/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="/game.js" type="text/javascript"></script> 
+    <script src="/chat.js" type="text/javascript"></script> 
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="canvasHolder">
+    <canvas id="testCanvas" width="600" height="600"></canvas>
+</div>
+<div id="player_list"> 
+    <div id="onlinedata">
+        <span id="players_on_line">0</span>
+        players online
+    </div>
+    <ul id="players_on_stage">
+        <li class="none">
+            <span class="player-color" style="background-color: #ff0000">&nbsp;&nbsp;&nbsp;</span>
+            <span class="player-name"></span>
+        </li>
+        <li class="none">
+            <span class="player-color" style="background-color: #00ff00">&nbsp;&nbsp;&nbsp;</span>
+            <span class="player-name"></span>
+        </li>
+        <li class="none">
+            <span class="player-color" style="background-color: #0000ff">&nbsp;&nbsp;&nbsp;</span>
+            <span class="player-name"></span>
+        </li>
+        <li class="none">
+            <span class="player-color" style="background-color: #ffff00">&nbsp;&nbsp;&nbsp;</span>
+            <span class="player-name"></span>
+        </li>
+        <li class="none">
+            <span class="player-color" style="background-color: #ff00ff">&nbsp;&nbsp;&nbsp;</span>
+            <span class="player-name"></span>
+        </li>
+        <li class="none">
+            <span class="player-color" style="background-color: #00ffff">&nbsp;&nbsp;&nbsp;</span>
+            <span class="player-name"></span>
+        </li>
+        <!-- 
+        <li class="none">
+            <span class="player-color" style="background-color: #ffa500">&nbsp;&nbsp;&nbsp;</span>
+            <span class="player-name"></span>
+        </li>
+        <li class="none">
+            <span class="player-color" style="background-color: #a500ff">&nbsp;&nbsp;&nbsp;</span>
+            <span class="player-name"></span>
+        </li>
+        <!-- -->
+    </ul>
+    <input type="button" id="initBattle" value="GO to Buttle" disabled="disabled" />
+    <input type="button" id="addme" value="Add me to battle" disabled="disabled" />
+    <input type="button" id="delme" value="Remove me from battle" disabled="disabled" />
+    <div id="chat">
+        <div id="log"></div>
+        <br />
+        <input type="text" id="input"><input type="submit" id="send" value="Send">
+        
+    </div>
+</div>
+<br class="clear" />
+
+</body>
+</html>
