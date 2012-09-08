@@ -176,13 +176,26 @@ $(document).ready(function() {
 
     socket.on("battleend", function(data) {
         isGameOn = false;
-        console.log(data);
+        var sid = socket.socket.sessionid;
+        var position = data.deathOrder.indexOf(sid);
         if (myBike && myBike.speed > 0) {
             stage.addChild(messager.drawYouWin());
         }
         stage.addChild(messager.drawResult(data));
         stage.update();
         myBike = null;
+        if (position == 0) {
+            return;
+        }
+        if (position == 1) {
+            return;
+        }
+        if (position == 2) {
+            return;
+        }
+        if (position > 2) {
+            return;
+        }
     });
 
     socket.on("initstage", function (data) {
