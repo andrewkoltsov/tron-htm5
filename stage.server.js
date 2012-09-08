@@ -117,7 +117,6 @@ module.exports.Stage = function(name, type) {
      * game tick
      */
     this.tick = function() {
-        console.log('stage' + this.name + " ticks");
         for (var i = 0; i < this.bikes.length; i++) {
             if (this.bikes[i].speed > 0) {
                 this.bikes[i].tick();
@@ -218,10 +217,12 @@ module.exports.Stage = function(name, type) {
             if (cnt < 2) {
                 console.log("room " + this.name + " gameover");
                 if (winner > -1) {
+                    this.deathOrder.push(this.usersOnStage[winner]);
                     console.log("player " + this.usersOnStage[winner] + " wins (" + winner + ")");
                 } else {
                     console.log("nobody wins");
                 }
+                this.deathOrder.reverse();
                 return true;
             }
             return false;

@@ -8,10 +8,34 @@ function Messager()  {
 	gr = null;
 
 	this.drawYouDied = function() {
-		var text = new Text("You died.",  "bold 100px Arial", "#ff0000");
+		var text = new Text("You lose.",  "bold 100px Arial", "#ff0000");
 		text.textAlign = "center";
-		text.x = stage_size/2;
-		text.y = stage_size/2;
+		text.textBaseline  = "middle";
+		text.x = stage_size / 2;
+		text.y = stage_size / 2;
+		return text;
+	};
+
+	this.drawYouWin = function() {
+		var text = new Text("You win.",  "bold 100px Arial", "#ff0000");
+		text.textAlign = "center";
+		text.textBaseline  = "middle";
+		text.x = stage_size / 2;
+		text.y = stage_size / 2;
+		return text;
+	};
+
+	this.drawResult = function(data) {
+		var str = "Result:"
+		for (var i = 0; i < data.deathOrder.length; i++) {
+			str += "\r\n";
+			str += (i + 1) + ". " + data.deathOrder[i].substring(0, 4);
+		}
+		var text = new Text(str, "bold 60px Arial", "#ffffff");
+		text.textAlign = "center";
+		text.textBaseline  = "middle";
+		text.x = stage_size / 2;
+		text.y = stage_size / 2 - (1 + data.deathOrder.length) / 2 * text.getMeasuredLineHeight();
 		return text;
 	}
 

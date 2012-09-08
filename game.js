@@ -168,7 +168,6 @@ $(document).ready(function() {
             }
             for (var i = 0; i < data.bikes.length; i++) {
                 bikes[i].setData(data.bikes[i]);
-                //bikes[i].drawLast();
                 bikes[i].drawFull();
             };
             stage.update();
@@ -176,8 +175,14 @@ $(document).ready(function() {
     });
 
     socket.on("battleend", function(data) {
-        myBike = null;
         isGameOn = false;
+        console.log(data);
+        if (myBike && myBike.speed > 0) {
+            stage.addChild(messager.drawYouWin());
+        }
+        stage.addChild(messager.drawResult(data));
+        stage.update();
+        myBike = null;
     });
 
     socket.on("initstage", function (data) {
