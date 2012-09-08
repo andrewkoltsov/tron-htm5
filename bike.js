@@ -1,4 +1,6 @@
 function Bike(data, image) {
+    MY_BIKE_COLOR = "#ffffff";
+    DIE_BIKE_COLOR = "#000000";
     this.image = image;
     this.corners = data.corners;
     this.color = data.color;
@@ -87,7 +89,7 @@ function Bike(data, image) {
 
         var points = [].concat(this.corners, this.head);
         var g = this.image.graphics;
-        g.beginStroke(this.color).beginFill(this.color).setStrokeStyle(10);
+        g.beginStroke(this.color).setStrokeStyle(10);
         for(var i = 1, size = points.length; i < size; ++i ) {
             var x1 = points[i - 1].x;
             var y1 = points[i - 1].y;
@@ -138,6 +140,9 @@ function Bike(data, image) {
         var g = this.image.graphics;
         g.beginStroke("#FFFFFF");
         var headFillColor = this.head.color || this.color;
+        if (this.speed == 0) {
+            headFillColor = DIE_BIKE_COLOR;
+        }
         g.beginFill(headFillColor);
         switch (this.head.direction) {
             case 'u':
@@ -162,6 +167,7 @@ function Bike(data, image) {
                 break;
         }
         g.closePath();
+        g.endFill();
         g.endStroke();
     }
 

@@ -8,8 +8,9 @@ var KEYCODE_D = 68;
 var KEYCODE_S = 83;
 var cell_size = 10;
 var bikes = [];
-var stage_width = 600/cell_size;
-var stage_height = 600/cell_size;
+var stage_size = 600;
+var stage_width = stage_size/cell_size;
+var stage_height = stage_size/cell_size;
 var stage = null;
 var isGameOn = false;
 var userids = [];
@@ -17,10 +18,14 @@ var bikeBlinkId = null;
 var myBikeHeadColor = 0;
 var myBike = null;
 var musicbox = null;
+var messager = null;
+var isYouDiedShown = false;
+var tl = null;
 
 //document.onkeydown  = handleKeyDown;
 function handleKeyDown(e) {
     //cross browser issues exist
+    if (!myBike) return;
     if(!e){ var e = window.event; }
     if ("input" == e.target.id) {
         return;
@@ -39,11 +44,12 @@ function handleKeyDown(e) {
 
 function initGame(data) {
     isGameOn = true;
+    isYouDiedShown = false;
     bikes = [];
     var canvas = document.getElementById("testCanvas");
     stage = new Stage(canvas);
     stage.clear();
-    stage.autoClear = false;
+    stage.autoClear = true;
 
     for (var i = 0; i < data.bikes.length; i++) {
         var bike = new Bike(data.bikes[i], new Shape());
@@ -74,18 +80,22 @@ function startBlinkMybike(bike) {
 
 function stopBlinkMybike() {
     if (bikeBlinkId) {
-        myBike = null;
+        //myBike = null;
         clearInterval(bikeBlinkId)
         bikeBlinkId = null;
     }
+    stage.removeChild(tl);
+    stage.update();
 }
 
 function blinkMyBike() {
-    myBikeHeadColor++;
-    myBikeHeadColor = myBikeHeadColor % 2;
-    var color = (myBikeHeadColor == 0) ? myBike.color : "#ffffff";
-    myBike.head.color = color;
-    myBike.drawHead();
+     if (bikeBlinkId) {
+        myBikeHeadColor++;
+        myBikeHeadColor = myBikeHeadColor % 2;
+        var color = (myBikeHeadColor == 0) ? myBike.color : "#ffffff";
+        myBike.head.color = color;
+        myBike.drawHead();
+        }
     stage.update();
 }
 
@@ -94,6 +104,7 @@ $(document).ready(function() {
 
     // musicbox = new MusicBox();
     // musicbox.playNext();
+    messager = new Messager();
 
     $(document).keydown(handleKeyDown);
 
@@ -140,11 +151,18 @@ $(document).ready(function() {
 
     socket.on("fulldata", function(data) {
         if (stage) {
-            var myBike = getMyBike(data.bikes);
-            if (myBike) {
-                myBike.head.color = "#ffffff";
-                myBike.isDrawBack = true;
-                if (myBike.speed == 0) {
+            var _myBike = getMyBike(data.bikes);
+            if (_myBike) {
+                if (_myBike.speed == 0) {
+                    if (!isYouDiedShown) {
+                        stage.addChild(messager.drawYouDied());
+                        isYouDiedShown = true;
+                    }
+                    //draw you are dead
+                }
+                _myBike.head.color = "#ffffff";
+                _myBike.isDrawBack = true;
+                if (_myBike.speed == 0) {
                     console.log("you died");
                 }
             }
@@ -158,6 +176,7 @@ $(document).ready(function() {
     });
 
     socket.on("battleend", function(data) {
+        myBike = null;
         isGameOn = false;
     });
 
@@ -166,6 +185,9 @@ $(document).ready(function() {
         initGame(data);
         // if (musicbox) musicbox.play(musicbox.Start);
         startBlinkMybike();
+        tl = new Shape();
+        stage.addChild(tl);
+        messager.playTrafficLightAmimation(tl);
         setTimeout(stopBlinkMybike, 2000);
     });
 
