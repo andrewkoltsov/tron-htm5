@@ -185,15 +185,19 @@ $(document).ready(function() {
         stage.update();
         myBike = null;
         if (position == 0) {
+            if (musicbox) musicbox.play(musicbox.f1st);
             return;
         }
         if (position == 1) {
+            if (musicbox) musicbox.play(musicbox.f2nd);
             return;
         }
         if (position == 2) {
+            if (musicbox) musicbox.play(musicbox.f3rd);
             return;
         }
         if (position > 2) {
+            if (musicbox) musicbox.play(musicbox.loser);
             return;
         }
     });
