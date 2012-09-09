@@ -237,6 +237,6 @@ $(document).ready(function() {
     } else {
         musicbox.mute(true);
     }
-    musicbox.playNext();
+    playNext();
 
 });

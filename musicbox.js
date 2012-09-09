@@ -15,6 +15,7 @@ function MusicBox() {
 	musicbox = this;
 
 	this.playList = ["Paranoid", "BornToBeWild", "HighwayStar", "PeterGunn", "RadarLove"];
+	//this.playList = [ "start", "f1st", "f2nd", "f3rd", "loser", "start"];
 	this.iPlayList = 0;
 
 	manifest = [ {src:"/oggs/Paranoid.ogg", id:"Paranoid"}
@@ -42,22 +43,13 @@ function MusicBox() {
 	 */
 	this.play = function(name) {
 		// if (hash[name]) {
-		// 	hash[name].play();
-		// 	return hash[name];
+		//  	hash[name].play();
+		//  	return hash[name];
 		// }
-		var inst = createjs.SoundJS.play(name);
-		//var inst = createjs.SoundJS.play(name, createjs.SoundJS.INTERRUPT_EARLY, 0, 140000);
-		// hash[name] = inst;
+		// var inst = createjs.SoundJS.play(name);
+		var inst = createjs.SoundJS.play(name, "any", 0, 0);
+		hash[name] = inst;
 		return inst;
-	};
-
-	this.playNext = function() {
-		if (musicbox.active) active.stop();
-		musicbox.iPlayList = musicbox.iPlayList % musicbox.playList.length;
-		musicbox.active = musicbox.play(musicbox.playList[musicbox.iPlayList]);
-		musicbox.active.setVolume(0.75);
-		musicbox.iPlayList++;
-		musicbox.active.onComplete = musicbox.playNext;
 	};
 
 	/**
@@ -71,4 +63,15 @@ function MusicBox() {
 		}
 	};
 
+}
+
+function playNext() {
+	if (!musicbox) return;
+	// if (musicbox.active) musicbox.active.stop();
+	musicbox.iPlayList = musicbox.iPlayList % musicbox.playList.length;
+	musicbox.active = musicbox.play(musicbox.playList[musicbox.iPlayList]);
+	musicbox.active.setVolume(0.75);
+	musicbox.iPlayList++;
+	musicbox.active.onComplete = function() {playNext()};
+	musicbox.active.onPlayFailed = function() {playNext()};
 }

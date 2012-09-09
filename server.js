@@ -148,7 +148,7 @@ var connections = 0;
     });
 
     function _beginBattle() {
-        stage.intervalGameTicker = setInterval(tick, 500);
+        stage.intervalGameTicker = setInterval(tick, 250);
     }
 
     function tick() {
