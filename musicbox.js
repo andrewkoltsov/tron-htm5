@@ -10,16 +10,20 @@ function MusicBox() {
 	active = null;
 	musicbox = this;
 
-	playList = ["BadToTheBone","Paranoid", "BornToBeWild", "HighwayStar", "PeterGunn", "RadarLove"];
+	playList = ["Paranoid", "BornToBeWild", "HighwayStar", "PeterGunn", "RadarLove"];
 	iPlayList = 0;
 
-	manifest = [ {src:"oggs/Paranoid.ogg", id:"Paranoid"}
-				,{src:"oggs/BadToTheBone.ogg", id:"BadToTheBone"}
-				,{src:"oggs/BornToBeWild.ogg", id:"BornToBeWild"}
-				,{src:"oggs/HighwayStar.ogg", id:"HighwayStar"}
-				,{src:"oggs/PeterGunn.ogg", id:"PeterGunn"}
-				,{src:"oggs/RadarLove.ogg", id:"RadarLove"}
-				,{src:"oggs/start.ogg", id:"start"}];
+	manifest = [ {src:"http://localhost/oggs/Paranoid.ogg", id:"Paranoid"}
+				,{src:"http://localhost/oggs/BadToTheBone.ogg", id:"BadToTheBone"}
+				,{src:"http://localhost/oggs/BornToBeWild.ogg", id:"BornToBeWild"}
+				,{src:"http://localhost/oggs/HighwayStar.ogg", id:"HighwayStar"}
+				,{src:"http://localhost/oggs/PeterGunn.ogg", id:"PeterGunn"}
+				,{src:"http://localhost/oggs/RadarLove.ogg", id:"RadarLove"}
+				,{src:"http://localhost/oggs/start.ogg", id:"start"}
+				,{src:"http://localhost/oggs/1st.ogg", id:"1st"}
+				,{src:"http://localhost/oggs/2nd.ogg", id:"2nd"}
+				,{src:"http://localhost/oggs/3rd.ogg", id:"3rd"}
+				,{src:"http://localhost/oggs/loser.ogg", id:"loser"}];
 		
 
 	// Instantiate a queue.
@@ -56,7 +60,12 @@ function MusicBox() {
 	 * if value is true - mutes MusicBox, else unmutes MusicBox
 	 */
 	this.mute = function(value) {
-		createjs.SoundJS.setMute(value);
+		if (value) {
+			createjs.SoundJS.setMasterVolume(0);
+		} else {
+			createjs.SoundJS.setMasterVolume(1);
+		}
+		// createjs.SoundJS.setMute(value);
 	};
 
 }

@@ -102,8 +102,8 @@ function blinkMyBike() {
 
 $(document).ready(function() {
 
-    // musicbox = new MusicBox();
-    // musicbox.playNext();
+    musicbox = new MusicBox();
+    
     messager = new Messager();
 
     $(document).keydown(handleKeyDown);
@@ -201,7 +201,7 @@ $(document).ready(function() {
     socket.on("initstage", function (data) {
         $("#initBattle").prop("disabled", true);
         initGame(data);
-        // if (musicbox) musicbox.play(musicbox.Start);
+        if (musicbox) musicbox.play(musicbox.Start);
         startBlinkMybike();
         tl = new Shape();
         stage.addChild(tl);
@@ -215,5 +215,24 @@ $(document).ready(function() {
     $("#delme").click(function () {
         socket.emit("delme", {});
     });
+
+
+
+    $("#sound").click(function() {
+        var $sound = $("#sound");
+        $sound.toggleClass("musicOn");
+        if ($sound.hasClass("musicOn")) {
+            musicbox.mute(false);
+        } else {
+            musicbox.mute(true);
+        }
+    });
+
+    if ($("#sound").hasClass("musicOn") ) {
+        musicbox.mute(false);
+    } else {
+        musicbox.mute(true);
+    }
+    musicbox.playNext();
 
 });
