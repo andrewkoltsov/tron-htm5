@@ -70,7 +70,7 @@ var connections = 0;
             }
         });
 
-    }).listen(8080);
+    }).listen(80);
 
     var io = require('socket.io').listen(app);
     // var redis = require('redis')
@@ -171,4 +171,4 @@ var connections = 0;
     }
 // }
 
-require('look').start(3131);
+//require('look').start(81);

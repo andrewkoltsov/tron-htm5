@@ -102,7 +102,7 @@ function blinkMyBike() {
 
 $(document).ready(function() {
 
-    musicbox = new MusicBox();
+    // musicbox = new MusicBox();
     
     messager = new Messager();
 
@@ -226,17 +226,17 @@ $(document).ready(function() {
         var $sound = $("#sound");
         $sound.toggleClass("musicOn");
         if ($sound.hasClass("musicOn")) {
-            musicbox.mute(false);
+            // musicbox.mute(false);
         } else {
-            musicbox.mute(true);
+            // musicbox.mute(true);
         }
     });
 
     if ($("#sound").hasClass("musicOn") ) {
-        musicbox.mute(false);
+        // musicbox.mute(false);
     } else {
-        musicbox.mute(true);
+        // musicbox.mute(true);
     }
-    playNext();
+    // playNext();
 
 });
